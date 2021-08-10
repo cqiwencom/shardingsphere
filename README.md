@@ -135,7 +135,33 @@ Architects can adjust the system architecture to the most applicable one to curr
 ### Build Apache ShardingSphere
 
 ```bash
+安装maven:
+maven需要JDK的支持，所以要先安装好JDK，过程略。
+
+官网下载maven二进制包：http://maven.apache.org/download.cgi
+解压到适当目录下。此处解压到/data目录下：
+然后编辑 ~/.bash_profile，添加
+export M2_HOME=/data/apache-maven-3.8.1
+export MAVEN_HOME=/data/apache-maven-3.8.1
+export PATH=$M2_HOME/bin:$PATH
+
+source ~/.bash_profile
+
+修改$M2_HOME/conf/settings.xml,在<mirrors> </mirrors>标签中添加jar包的中国源：
+<mirror>
+  <id>alimaven</id>
+  <mirrorOf>central</mirrorOf>
+  <name>aliyun maven</name>
+  <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+</mirror>
+
+查看mvn版本
+mvn -version
+
+进入本项目的目录中，然后运行：
 ./mvnw clean install -Prelease
+或
+./mvnw clean install -Prelease -T 4C -Dmaven.test.skip=true -Dmaven.compile.fork=true
 ```
 
 Artifact:
